@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import GetQuote from "./GetQuote";
 import {
   Carousel,
   CarouselItem,
@@ -7,46 +6,57 @@ import {
   CarouselIndicators,
 } from "reactstrap";
 import items from "../utils/slide";
+import GetQuoteCard from "./GetQuoteCard";
 
 function Home() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
 
+  // Right arrow
   const next = () => {
     if (animating) return;
     const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
     setActiveIndex(nextIndex);
   };
 
+  // Left arrow
   const previous = () => {
     if (animating) return;
     const nextIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1;
     setActiveIndex(nextIndex);
   };
 
+  // img animating
   const goToIndex = (newIndex) => {
     if (animating) return;
     setActiveIndex(newIndex);
   };
 
-  const slides = items.map((item) => {
+  // Slides img iterating
+  const slides = items.map((item, index) => {
     return (
       <CarouselItem
         onExiting={() => setAnimating(true)}
         onExited={() => setAnimating(false)}
         key={item.src}
       >
-        <img
-          src={item.src}
-          alt={item.altText}
-          style={{ width: "100%", padding: "20px" }}
-        />
+        <a
+          href={`/capabilities/${item.capability}`}
+          style={{ display: "block" }}
+        >
+          <img
+            src={item.src}
+            alt={item.altText}
+            style={{ width: "100%", padding: "0 25px", height: "300px" }}
+          />
+        </a>
       </CarouselItem>
     );
   });
 
   return (
     <>
+      {/* Carousel imgs */}
       <div>
         <Carousel activeIndex={activeIndex} next={next} previous={previous}>
           <CarouselIndicators
@@ -67,14 +77,32 @@ function Home() {
           />
         </Carousel>
       </div>
-      <div className="d-flex flex-row bd-highlight ">
-        <p>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book.
-        </p>
-        <GetQuote />
+
+      {/* Content and form */}
+      <div className="row align-items-center my-5">
+        <div className=" col-lg-8 px-5">
+          <h1>Design. Manufacture. Deliver</h1>
+          <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s, when an unknown printer took a galley of type
+            and scrambled it to make a type specimen book. Lorem Ipsum is simply
+            dummy text of the printing and typesetting industry. Lorem Ipsum has
+            been the industry's standard dummy text ever since the 1500s, when
+            an unknown printer took a galley of type and scrambled it to make a
+            type specimen book. Lorem Ipsum is simply dummy text of the printing
+            and typesetting industry. Lorem Ipsum has been the industry's
+            standard dummy text ever since the 1500s, when an unknown printer
+            took a galley of type and scrambled it to make a type specimen
+            book.Lorem Ipsum is simply dummy text of the printing and
+            typesetting industry. Lorem Ipsum has been the industry's standard
+            dummy text ever since the 1500s, when an unknown printer took a
+            galley of type and scrambled it to make a type specimen book.
+          </p>
+        </div>
+        <div className="col-lg-3 px-5">
+          <GetQuoteCard />
+        </div>
       </div>
     </>
   );
