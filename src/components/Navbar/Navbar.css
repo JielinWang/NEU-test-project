@@ -1,0 +1,19 @@
+.nav-link:hover {
+  color: #fff;
+  background-color: #007bff;
+}
+
+@media (max-width: 767px) {
+  .logo img {
+    height: 30px;
+  }
+
+  .justify-content-center {
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+  }
+}
