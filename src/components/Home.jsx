@@ -56,7 +56,7 @@ function Home() {
 
   return (
     <>
-      {/* Carousel imgs */}
+      {/* Carousel img */}
       <div>
         <Carousel activeIndex={activeIndex} next={next} previous={previous}>
           <CarouselIndicators

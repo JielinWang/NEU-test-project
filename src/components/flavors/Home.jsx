@@ -1,17 +1,13 @@
 import React from "react";
-import GetQuoteCard from "../GetQuoteCard";
 import { Outlet } from "react-router-dom";
 
 const Home = () => {
   return (
-    <>
-      <div>
+    <div className="home">
+      <div class="container">
         <Outlet />
       </div>
-      <div>
-        <GetQuoteCard />
-      </div>
-    </>
+    </div>
   );
 };
 
