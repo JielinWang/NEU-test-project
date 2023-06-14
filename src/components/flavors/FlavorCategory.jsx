@@ -1,36 +1,30 @@
-import React, { useEffect } from "react";
-import { useParams } from "react-router";
+import React from "react";
+import GetQuoteCard from "../GetQuoteCard";
+import { useParams } from "react-router-dom";
+import flavorsData from "../../utils/flavorsData";
 
 const FlavorCategory = () => {
-  let { postSlug } = useParams();
+  const { category } = useParams();
 
-  useEffect(() => {
-    // Fetch post using the postSlug
-  }, [postSlug]);
+  // Filter flavorsData based on the selected category
+  const flavorsInCategory = flavorsData.filter(
+    (flavor) => flavor[1] === category
+  );
 
   return (
-    <div className="home">
-      <div class="container">
-        <h1 className="mt-5">This is a Post Title</h1>
-        <h6 className="mb-5">The post slug is, {postSlug}</h6>
-        <p>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book.
-        </p>
-        <p>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book.
-        </p>
-        <p>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book.
-        </p>
+    <div className="container">
+      <div className="row align-items-center my-5">
+        <div className="col-lg-7">
+          <h1>{category}</h1>
+          <ul>
+            {flavorsInCategory.map((flavor) => (
+              <li key={flavor[0]}>{flavor[2]}</li>
+            ))}
+          </ul>
+        </div>
+        <div className="col-lg-3">
+          <GetQuoteCard />
+        </div>
       </div>
     </div>
   );

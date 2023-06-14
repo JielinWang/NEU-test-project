@@ -11,10 +11,9 @@ function App() {
     <Router>
       <Navigation />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/flavors" element={<Flavors />}>
-          <Route path="" element={<FlavorCategory />} />
-          <Route path="flavorsSlug" element={<FlavorCategory />} />
+        <Route exact path="/" element={<Home />} />
+        <Route exact path="/flavors" element={<Flavors />}>
+          <Route path="flavors/:category" element={<FlavorCategory />} />
         </Route>
       </Routes>
       <Footer />

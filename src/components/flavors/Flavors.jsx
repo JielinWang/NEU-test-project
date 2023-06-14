@@ -1,27 +1,41 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import GetQuoteCard from "../GetQuoteCard";
 
 const Flavors = () => {
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    // Fetch the data from flavors.json
+    fetch("/flavors.json")
+      .then((response) => response.json())
+      .then((data) => {
+        // Extract unique flavor categories from the data
+        const uniqueCategories = [...new Set(data.map((flavor) => flavor[1]))];
+        setCategories(uniqueCategories);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, []);
+
   return (
-    <div className="home">
-      <div class="container">
-        <Link to="/flavors/category">
-          <div class="row align-items-center my-5">
-            <div class="col-lg-7">
-              <h1 class="font-weight-light">Flavors</h1>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book.
-              </p>
-            </div>
-            <div class="col-lg-5">
-              <GetQuoteCard />
-            </div>
-          </div>
-        </Link>
+    <div className="container">
+      <div className="row align-items-center my-5">
+        <div className="col-lg-7">
+          <h1 className="font-weight-light">Flavors</h1>
+          <ul>
+            {categories.map((category) => (
+              <li key={category}>
+                <a href={`/flavors/${encodeURIComponent(category)}`}>
+                  {category}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="col-lg-3">
+          <GetQuoteCard />
+        </div>
       </div>
     </div>
   );
