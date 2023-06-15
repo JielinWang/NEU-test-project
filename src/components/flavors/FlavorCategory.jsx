@@ -35,7 +35,7 @@ const FlavorCategory = () => {
           </ul>
         </div>
         {/* Get quote card on the right side */}
-        <div className="col-lg-3">
+        <div className="col-lg-3 ">
           <GetQuoteCard />
         </div>
       </div>
