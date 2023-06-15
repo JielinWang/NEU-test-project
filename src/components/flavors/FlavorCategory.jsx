@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import GetQuoteCard from "../GetQuoteCard";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 const FlavorCategory = () => {
   const { categorySlug } = useParams();
@@ -13,7 +13,7 @@ const FlavorCategory = () => {
       .then((data) => {
         const categoryItems = data.filter(
           (flavor) =>
-            flavor.categorySlug.toLowerCase() === categorySlug.toLowerCase()
+            flavor[1].toLowerCase().replace(/\s+/g, "-") === categorySlug // Filter based on categorySlug
         );
         setFlavorItems(categoryItems);
       })
@@ -22,15 +22,19 @@ const FlavorCategory = () => {
 
   return (
     <div className="container">
-      <div className="row align-items-center my-5">
-        <div className="col-lg-7">
+      <div className="row my-2">
+        <div className="col-9">
           <h1>{categorySlug} </h1>
+          {/* link back to main flavors page */}
+          <Link to="/flavors">Back to Flavors</Link>
+          {/* get all of the items from it's own flavor category */}
           <ul>
             {flavorItems.map((flavor) => (
               <li key={flavor[0]}>{flavor[2]}</li>
             ))}
           </ul>
         </div>
+        {/* Get quote card on the right side */}
         <div className="col-lg-3">
           <GetQuoteCard />
         </div>

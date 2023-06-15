@@ -5,15 +5,17 @@ import Footer from "./components/Footer";
 import Navigation from "./components/navbar/Navbar";
 import FlavorCategory from "./components/flavors/FlavorCategory";
 import Flavors from "./components/flavors/Flavors";
+import FlavorsHomePage from "./components/flavors/FlavorsHomePage";
 
 function App() {
   return (
     <Router>
       <Navigation />
       <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route exact path="/flavors" element={<Flavors />}>
-          <Route path=":category" element={<FlavorCategory />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/flavors" element={<FlavorsHomePage />}>
+          <Route path="" element={<Flavors />} />
+          <Route path=":categorySlug" element={<FlavorCategory />} />
         </Route>
       </Routes>
       <Footer />

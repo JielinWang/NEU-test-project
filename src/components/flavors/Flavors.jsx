@@ -5,34 +5,51 @@ import GetQuoteCard from "../GetQuoteCard";
 const Flavors = () => {
   const [flavorCategories, setFlavorCategories] = useState([]);
 
+  // get data fetch from flavors.json file located at public dir
   useEffect(() => {
-    // Fetch flavor categories from flavors.json
     fetch("/flavors.json")
       .then((response) => response.json())
       .then((data) => {
-        const categories = [...new Set(data.map((flavor) => flavor[1]))];
-        setFlavorCategories(categories);
+        const uniqueCategories = [...new Set(data.map((item) => item[1]))];
+        setFlavorCategories(uniqueCategories);
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        console.error("Error fetching flavor categories:", error);
+      });
   }, []);
 
   return (
     <div className="container">
-      <div className="row align-items-center my-5">
-        <div className="col-lg-7">
+      <div className="row align-items-start my-5">
+        <div className="col-lg-9">
           <h1 className="font-weight-light">Flavors</h1>
-          <ul>
-            {flavorCategories.map((category) => {
-              const categorySlug = category.toLowerCase().replace(/\s/g, "-");
-              return (
-                <li key={category}>
-                  <Link to={`/flavors/${categorySlug}`}>{category}</Link>
-                </li>
-              );
-            })}
-          </ul>
+          <div className="d-flex flex-wrap">
+            {/* Flavors categories list cards */}
+            {flavorCategories.map((category, index) => (
+              <div className="col-lg-3 col-6  p-2" key={index}>
+                <Link
+                  className="text-decoration-none"
+                  to={`/flavors/${category.toLowerCase().replace(/\s+/g, "-")}`}
+                >
+                  <div className="card text-center">
+                    <img
+                      src="../../../img/flavors.jpg"
+                      alt={category}
+                      height="100"
+                      width="150"
+                      className="mx-auto"
+                    />
+                    <div className="card-body">
+                      <h5 className="card-title">{category}</h5>
+                    </div>
+                  </div>
+                </Link>
+              </div>
+            ))}
+          </div>
         </div>
-        <div className="col-lg-3">
+        {/* Get quote card on the right side */}
+        <div className="col-lg-3 align-self-start">
           <GetQuoteCard />
         </div>
       </div>

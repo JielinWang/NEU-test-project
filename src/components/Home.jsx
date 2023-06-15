@@ -100,6 +100,7 @@ function Home() {
             galley of type and scrambled it to make a type specimen book.
           </p>
         </div>
+        {/* Get quote card on the right side */}
         <div className="col-lg-3 px-5">
           <GetQuoteCard />
         </div>

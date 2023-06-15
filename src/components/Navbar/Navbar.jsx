@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import {
   Nav,
   NavItem,
@@ -19,7 +20,7 @@ const Navigation = () => {
   const toggleFlavors = () => setFlavorsOpen(!flavorsOpen);
 
   useEffect(() => {
-    // Fetch flavor categories from flavors.json
+    // Fetch flavor categories from flavors.json file
     fetch("/flavors.json")
       .then((response) => response.json())
       .then((data) => {
@@ -33,15 +34,17 @@ const Navigation = () => {
     <>
       {/* Logo */}
       <div className="logo">
-        <img
-          src="../../img/logo.png"
-          className="d-inline-block align-text-top"
-          style={{
-            height: 40,
-            paddingBottom: 10,
-          }}
-          alt="logo"
-        />
+        <Link to="/">
+          <img
+            src="../../img/logo.png"
+            className="d-inline-block align-text-top"
+            style={{
+              height: 40,
+              paddingBottom: 10,
+            }}
+            alt="logo"
+          />
+        </Link>
       </div>
       {/* Header */}
       <div>
@@ -93,7 +96,6 @@ const Navigation = () => {
           </NavItem>
         </Nav>
       </div>
-      {/* Slider */}
     </>
   );
 };
