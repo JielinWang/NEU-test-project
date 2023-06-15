@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import GetQuoteCard from "../GetQuoteCard";
 
 const Flavors = () => {
-  const [categories, setCategories] = useState([]);
+  const [flavorCategories, setFlavorCategories] = useState([]);
 
   useEffect(() => {
-    // Fetch the data from flavors.json
+    // Fetch flavor categories from flavors.json
     fetch("/flavors.json")
       .then((response) => response.json())
       .then((data) => {
-        // Extract unique flavor categories from the data
-        const uniqueCategories = [...new Set(data.map((flavor) => flavor[1]))];
-        setCategories(uniqueCategories);
+        const categories = [...new Set(data.map((flavor) => flavor[1]))];
+        setFlavorCategories(categories);
       })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+      .catch((error) => console.error(error));
   }, []);
 
   return (
@@ -24,13 +22,14 @@ const Flavors = () => {
         <div className="col-lg-7">
           <h1 className="font-weight-light">Flavors</h1>
           <ul>
-            {categories.map((category) => (
-              <li key={category}>
-                <a href={`/flavors/${encodeURIComponent(category)}`}>
-                  {category}
-                </a>
-              </li>
-            ))}
+            {flavorCategories.map((category) => {
+              const categorySlug = category.toLowerCase().replace(/\s/g, "-");
+              return (
+                <li key={category}>
+                  <Link to={`/flavors/${categorySlug}`}>{category}</Link>
+                </li>
+              );
+            })}
           </ul>
         </div>
         <div className="col-lg-3">

@@ -1,23 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import GetQuoteCard from "../GetQuoteCard";
 import { useParams } from "react-router-dom";
-import flavorsData from "../../utils/flavorsData";
 
 const FlavorCategory = () => {
-  const { category } = useParams();
+  const { categorySlug } = useParams();
+  const [flavorItems, setFlavorItems] = useState([]);
 
-  // Filter flavorsData based on the selected category
-  const flavorsInCategory = flavorsData.filter(
-    (flavor) => flavor[1] === category
-  );
+  useEffect(() => {
+    // Fetch flavor items for the specific category from flavors.json
+    fetch("/flavors.json")
+      .then((response) => response.json())
+      .then((data) => {
+        const categoryItems = data.filter(
+          (flavor) =>
+            flavor.categorySlug.toLowerCase() === categorySlug.toLowerCase()
+        );
+        setFlavorItems(categoryItems);
+      })
+      .catch((error) => console.error(error));
+  }, [categorySlug]);
 
   return (
     <div className="container">
       <div className="row align-items-center my-5">
         <div className="col-lg-7">
-          <h1>{category}</h1>
+          <h1>{categorySlug} </h1>
           <ul>
-            {flavorsInCategory.map((flavor) => (
+            {flavorItems.map((flavor) => (
               <li key={flavor[0]}>{flavor[2]}</li>
             ))}
           </ul>
