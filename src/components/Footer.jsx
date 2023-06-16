@@ -19,6 +19,8 @@ const Footer = () => {
           />
         </div>
       </footer>
+      {/* Add an empty div with some padding to create space */}
+      <div style={{ paddingBottom: "60px" }}></div>
     </div>
   );
 };
